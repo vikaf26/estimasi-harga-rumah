@@ -38,13 +38,13 @@ label_encoder_airconditioning.fit(['Yes','No'])
 label_encoder_prefarea.fit(['Yes','No'])
 label_encoder_furnishingstatus.fit(["Fully Furnished", "Semi Furnished", "Unfurnished"])
 
-mainroad_encoded = label_encoder_mainroad.transform([sex2])[0]
-guestroom_encoded = label_encoder_guestroom.transform([smoker2])[0]
-basement_encoded = label_encoder_basement.transform([region2])[0]
-hotwaterheating_encoded = label_encoder_hotwaterheating.transform([sex2])[0]
-airconditioning_encoded = label_encoder_airconditioning.transform([smoker2])[0]
-prefarea_encoded = label_encoder_prefarea.transform([region2])[0]
-furnishingstatus_encoded = label_encoder_furnishingstatus.transform([region2])[0]
+mainroad_encoded = label_encoder_mainroad.transform([mainroad])[0]
+guestroom_encoded = label_encoder_guestroom.transform([guestroom])[0]
+basement_encoded = label_encoder_basement.transform([basement])[0]
+hotwaterheating_encoded = label_encoder_hotwaterheating.transform([hotwaterheating])[0]
+airconditioning_encoded = label_encoder_airconditioning.transform([airconditioning])[0]
+prefarea_encoded = label_encoder_prefarea.transform([prefarea])[0]
+furnishingstatus_encoded = label_encoder_furnishingstatus.transform([furnishingstatus])[0]
 
 predict = ''
 
