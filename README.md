@@ -5,48 +5,49 @@
 
 ## Domain Proyek
 
-Beras sebagai sumber karbohidrat yang banyak dikonsumsi oleh banyak orang. Berbagai macam jenis beras dengan rasa, kegunaan dan cara masak yang berbeda membuat beberapa orang kebingungan dalam membedakan jenis beras tersebut. Dengan rupa yang nyaris sama antara beras, dibuatlah aplikasi yang dapat membantu dalam mengklasifikasi jenis beras
+Proyek ini dibuat untuk membantu orang yang ingin membeli rumah dan mendapatkan estimasi harga sesuai dengan kondisi rumah dan budget yang mereka miliki
 
 ## Business Understanding
 
-Model ini dibuat untuk mempermudah dalam melakukan klasifikasi jenis beras berdasarkan karakteristik dan ciri ukuran beras tersebut.
+Mempermudah mereka yang ingin membeli rumah tanpa harus data ke tempat meskipun hanya melihat dari info di internet terkait kondisi rumah dan cek harga berdasarkan harga pasarannya sehingga mereka bisa mengetahui apakah harga rumah tersebut cocok atau tidak dengan bugdet dan harga pasarannya
 
 Bagian laporan ini mencakup:
 
 ### Problem Statements
 
 Menjelaskan pernyataan masalah latar belakang:
-- Sulit nya membedakan antar jenis beras
+- Pembeli rumah harus mencari info harga rumah sesuai pasarannya agar sesuai dengan budget dan kondisi rumah
 
 ### Goals
 
 Menjelaskan tujuan dari pernyataan masalah:
-- Dapat mempermudah dalam membedakan antar jenis beras
+- Mempermudah pembeli rumah dalam mendapatkan informasi terkait estimasi harga rumah sesuai dengan kondisi rumah dan harga pasarannya
 
     ### Solution statements
-    - Pembuatan Aplikasi yang dapat membantu pembeli maupun penjual beras dalam membedakan jenis antar beras berbasis web yang dapat diakses dimana pun dan oleh siapapun
-    - Model yang dipakai di aplikasi tersebut dibuat menggunakan algoritma Logistic Regression
+    - Pembuatan Aplikasi yang dapat membantu pembeli rumah dalam mendapatkan informasi terkait estimasi harga rumah tanpa harus datang ke penjual rumah atau menghubungi penjual rumah satu persatu.
+    - Model yang dipakai di aplikasi tersebut dibuat menggunakan algoritma Logistic Regression dengan minimal akurasi 70%
 
 ## Data Understanding
-Dataset yang diambil dari kaggle ini berisi 18185 baris da 12 kolom dengan tipe data keseluruhan numerik
+Dataset yang diambil dari kaggle ini berisi 13 atribut yaitu spesifikasi rumah dan harga rumahnya
 
-Dataset: [Rice type classification](https://www.kaggle.com/datasets/mssmartypants/rice-type-classification/data).
+Dataset: [Housing Price Prediction](https://www.kaggle.com/datasets/harishkumardatalab/housing-price-prediction/data).
 
 Selanjutnya uraikanlah seluruh variabel atau fitur pada data. Sebagai contoh:  
 
 ### Variabel-variabel pada Dataset adalah sebagai berikut:
-- id = Index data ```int64```
-- Area = Luas Beras ```int64```
-- MajorAxisLength = Panjang Sumbu Utama ```float64```
-- MinorAxisLength = Panjang Sumbu Minor ```float64```
-- Eccentricity = Eksentrisitas ```float64```
-- ConvexArea = Area Cembung ```int64```
-- EquivDiameter = Diameter Ekuivalen ```float64```
-- Extent = Tingkat Perluasan ```float64```
-- Perimeter = Keliling ```float64```
-- Roundness = Kebulatan ```float64```
-- AspectRation = Aspek Rasio ```float64```
-- Class = Jenis Beras (1 = jasmine dan 0 = gonen) ```int64```
+- price : Harga rumah 
+- Area: Luas total rumah dalam kaki persegi.
+- Bedrooms: Jumlah kamar tidur di dalam rumah.
+- Bathrooms: Jumlah kamar mandi di dalam rumah.
+- Stories: Jumlah lantai di dalam rumah.
+- Mainroad: Apakah rumah tersebut terhubung dengan jalan utama (Ya/Tidak).
+- Guestroom: Apakah rumah tersebut memiliki ruang tamu (Ya/Tidak).
+- Basement: Apakah rumah memiliki ruang bawah tanah (Ya/Tidak).
+- Hot water heating: Apakah rumah memiliki sistem pemanas air panas (Ya/Tidak).
+- Airconditioning: Apakah rumah memiliki sistem pendingin udara (Ya/Tidak).
+- Parking: Jumlah tempat parkir yang tersedia di dalam rumah.
+- Preferea: Apakah rumah tersebut terletak di area yang disukai (Ya/Tidak).
+- Furnishing status: Status perabotan rumah (Fully Furnished, Semi Furnished, Unfurnished).
 
 ## Data Preparation
 Sehubung dengan tipe data yang ada didalam dataset sudah sesuai dengan kebutuhan algoritma yang dipakai yaitu full numerik mana preparation yang dilakukan hanyalah penghapusan kolom yang tidak dipakai, yaitu id:
