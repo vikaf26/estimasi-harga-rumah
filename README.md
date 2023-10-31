@@ -25,7 +25,7 @@ Menjelaskan tujuan dari pernyataan masalah:
 
     ### Solution statements
     - Pembuatan Aplikasi yang dapat membantu pembeli rumah dalam mendapatkan informasi terkait estimasi harga rumah tanpa harus datang ke penjual rumah atau menghubungi penjual rumah satu persatu.
-    - Model yang dipakai di aplikasi tersebut dibuat menggunakan algoritma Logistic Regression dengan minimal akurasi 70%
+    - Model yang dipakai di aplikasi tersebut dibuat menggunakan algoritma Linear Regression dengan minimal akurasi 70%
 
 ## Data Understanding
 Dataset yang diambil dari kaggle ini berisi 13 atribut yaitu spesifikasi rumah dan harga rumahnya
@@ -49,55 +49,72 @@ Selanjutnya uraikanlah seluruh variabel atau fitur pada data. Sebagai contoh:
 - Preferea: Apakah rumah tersebut terletak di area yang disukai (Ya/Tidak).
 - Furnishing status: Status perabotan rumah (Fully Furnished, Semi Furnished, Unfurnished).
 
+cek null values:
+![image](https://github.com/vikaf26/estimasi-harga-rumah/assets/149370346/a8a2c78f-8a51-4c1f-a436-93e1921a8619)
+
+tidak terdapat nilai yang kosong
+
+cek korelasi data:
+![image](https://github.com/vikaf26/estimasi-harga-rumah/assets/149370346/a1a0b31d-ff7d-4bb8-a3a0-c808a1e1a089)
+
+cek distribusi harga rumah
+![image](https://github.com/vikaf26/estimasi-harga-rumah/assets/149370346/31be87b8-2009-4736-80ec-9fab0621240e)
+
+
 ## Data Preparation
-Sehubung dengan tipe data yang ada didalam dataset sudah sesuai dengan kebutuhan algoritma yang dipakai yaitu full numerik mana preparation yang dilakukan hanyalah penghapusan kolom yang tidak dipakai, yaitu id:
+Dikarenakan terdapat tipe data object maka harus kita convert menjadi numerik:
 ```
-df = df.drop(columns = 'id', axis = 1)
+enc = LabelEncoder()
+df['mainroad'] = enc.fit_transform(df[['mainroad']])
+df['guestroom'] = enc.fit_transform(df[['guestroom']])
+df['basement'] = enc.fit_transform(df[['basement']])
+df['hotwaterheating'] = enc.fit_transform(df[['hotwaterheating']])
+df['airconditioning'] = enc.fit_transform(df[['airconditioning']])
+df['prefarea'] = enc.fit_transform(df[['prefarea']])
+df['furnishingstatus'] = enc.fit_transform(df[['furnishingstatus']])
 ```
 
+karna data sudah sesuai dengan kebutuhan algoritma maka kita lanjut ke modeling
 ## Modeling
 tahapan pertama yaitu mendeklarasikan X dan Y sebagai atribut dan label:
 ```
-X = df.drop (columns='Class', axis=1)
-Y = df['Class']
+x = df.drop(['price'],axis=1)
+y = df['price']
+x.shape, y.shape
 ```
 setelah itu menentukan data training dan testing:
 ```
 from sklearn.model_selection import train_test_split
-X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size= 0.2, stratify=Y, random_state=2)
+x_train, X_test, y_train, y_test = train_test_split(x,y,random_state=70)
+y_test.shape
 ```
-selanjutnya membuat model dengan algoritma logistic regression:
+kita scaling dulu datanya:
 ```
-from sklearn.linear_model import LogisticRegression
-model = LogisticRegression()
-model.fit(X_train, Y_train)
+from sklearn.preprocessing import MinMaxScaler
+scalar=MinMaxScaler()
+x_train=scalar.fit_transform(x_train)
+X_test=scalar.fit_transform(X_test)
+```
+selanjutnya membuat model dengan algoritma linear regression:
+```
+from sklearn.linear_model import LinearRegression
+reg = LinearRegression()
+```
+```
+reg.fit(x_train,y_train)
 ```
 
 ## Evaluation
 Pada tahap evaluasi, metrik evaluasi yang dipakai adalah akurasi:
 ```
-from sklearn.metrics import accuracy_score
-X_train_prediction = model.predict(X_train)
-training_data_accuracy = accuracy_score(X_train_prediction, Y_train)
+score = lr.score(X_test, y_test)
+print('akurasi model regresi linier = ', score*100)
 ```
-```
-print('Akurasi data training adalah = ', training_data_accuracy)
-```
-Akurasi data training adalah =  0.9891394006048941
-```
-X_test_prediction = model.predict(X_test)
-test_data_accuracy = accuracy_score(X_test_prediction, Y_test)
-```
-```
-print('Akurasi data testing adalah = ', test_data_accuracy)
-```
-Akurasi data testing adalah =  0.9887269727797635
+akurasi model regresi linier =  70.4598411675003
 
-Hasil akhir yang didapatkan adalah akurasi data training sebesar 98% dan testing sebesar 98%.
-
-Model yang sudah dibuat dapat dipakai dan di deploy menjadi aplikasi yang dapat dipakai umum dikarenakan mendapatkan akurasi yang cukup tinggi.
+Model yang sudah dibuat dapat dipakai dan di deploy menjadi aplikasi yang dapat dipakai umum dikarenakan mendapatkan akurasi lebih dari 70%.
 
 ## Deployment
 Model yang sudah dibuat dideploy menggunakan streamlit:
-Link aplikasi : [Klasifikasi beras](klasifikasi-beras-vika)
+Link aplikasi : [Estimasi Harga Rumah](https://estimasi-harga-rumah.streamlit.app/)
 
